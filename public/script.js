@@ -20,6 +20,7 @@ courseSelect.addEventListener('change', function () {
   }
 });
 
+/*Dynamic display of data from fetch request */
 // Dynamically display data within form>select elements
 const select = document.getElementById('course');
 
@@ -52,6 +53,7 @@ logEntries.forEach((logEntry) => {
   });
 });
 
+/* UVU Id Validation */
 /* Ensure uvuId input checks input for strings no longer than 8 and returns error codes for violations*/
 const input = document.getElementById('uvuId');
 input.value = 'Enter a valid UVU ID        eg. 10234567';
@@ -71,9 +73,6 @@ input.addEventListener('input', (event) => {
       `https://jsonservere5wv4m-jam2--3000.local-credentialless.webcontainer.io/api/v1/logs?uvuId=${event.target.value}`
     )
       .then((response) => {
-        if (Object.keys(response).length === 0) {
-          throw new Error('Invalid UVU ID');
-        }
         if (response.status === 200 || response.status === 304) {
           return response.json();
         } else {
@@ -81,8 +80,13 @@ input.addEventListener('input', (event) => {
         }
       })
       .then((data) => {
-        // Display results
-        console.log(data);
+        // check if object is empty
+        if (Object.keys(data).length === 0) {
+          throw new Error('Invalid UVU ID');
+        } else {
+          // Display results
+          console.log(data);
+        }
       })
       .catch((error) => {
         // Appropriately guide the user
