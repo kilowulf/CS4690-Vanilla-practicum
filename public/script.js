@@ -2,8 +2,8 @@
 
 /**  Make UVU ID visible only after course selection has been made **/
 // Get references to the form elements
-var courseSelect = document.getElementById('course');
-var studentIdInput = document.getElementById('uvuId');
+const courseSelect = document.getElementById('course');
+const studentIdInput = document.getElementById('uvuId');
 
 // Hide the student ID input field by default
 studentIdInput.style.display = 'none';
@@ -20,7 +20,7 @@ courseSelect.addEventListener('change', function () {
   }
 });
 
-// Dynamically display data within form>select element
+// Dynamically display data within form>select elements
 const select = document.getElementById('course');
 
 fetch(
@@ -31,6 +31,7 @@ fetch(
     // Create an option element for each course
     data.forEach((course) => {
       const option = document.createElement('option');
+      // set values and content to the appropriate course attributes
       option.value = course.id;
       option.textContent = course.display;
       select.appendChild(option);
@@ -40,5 +41,62 @@ fetch(
   .catch((error) => {
     console.error('Error fetching courses:', error);
   });
+
+/* Make the paragragh data within the <pre> tags only visible on click of when clicked */
+const logEntries = document.querySelectorAll('.log-entries li');
+
+logEntries.forEach((logEntry) => {
+  logEntry.addEventListener('click', () => {
+    const text = logEntry.querySelector('pre');
+    text.style.display = text.style.display === 'none' ? 'block' : 'none';
+  });
+});
+
+/* Ensure uvuId input checks input for strings no longer than 8 and returns error codes for violations*/
+const input = document.getElementById('uvuId');
+input.value = 'Enter a valid UVU ID        eg. 10234567';
+
+input.addEventListener('input', (event) => {
+  // Ensure character length never exceeds 8
+  if (event.target.value.length > 8) {
+    event.target.value = event.target.value.substring(0, 8);
+  }
+  // Only allow numbers, no letters or other characters
+  if (!/^\d+$/.test(event.target.value)) {
+    event.target.value = event.target.value.replace(/[^\d]/g, '');
+  }
+  // When character length reaches 8 and it's only digits, fire off an AJAX request
+  if (event.target.value.length === 8) {
+    fetch(
+      `https://jsonservere5wv4m-jam2--3000.local-credentialless.webcontainer.io/api/v1/logs?uvuId=${event.target.value}`
+    )
+      .then((response) => {
+        if (Object.keys(response).length === 0) {
+          throw new Error('Invalid UVU ID');
+        }
+        if (response.status === 200 || response.status === 304) {
+          return response.json();
+        } else {
+          throw new Error('Invalid UVU ID');
+        }
+      })
+      .then((data) => {
+        // Display results
+        console.log(data);
+      })
+      .catch((error) => {
+        // Appropriately guide the user
+        const errorDiv = document.createElement('div');
+        errorDiv.classList.add('alert', 'alert-danger');
+        errorDiv.innerText = error.message;
+        // Append the error message to the body of the document
+        document.body.appendChild(errorDiv);
+        // Remove the error message after 5 seconds
+        setTimeout(() => {
+          errorDiv.remove();
+        }, 5000);
+      });
+  }
+});
 
 // NOTE: The TODOs are listed in index.html

@@ -33,10 +33,10 @@
         <option value="cs3380">CS 3380</option> --></select
       ><br />
 
-      <!-- TODO: Don't show the uvu id text input box until a course was selected above. -->
-      <!-- TODO: If course ever becomes unselected, don't show the uvu id text input box.-->
+      <!-- TODO: Don't show the uvu id text input box until a course was selected above. Done -->
+      <!-- TODO: If course ever becomes unselected, don't show the uvu id text input box. Done -->
       <label for="uvuId">UVU ID</label><br />
-      <!-- TODO: write `10234567` as sample data on the input field below  -->
+      <!-- TODO: write `10234567` as sample data on the input field below : Done -->
       <!-- TODO: Ensure the character length never exceeds 8 -->
       <!-- TODO: Only numbers, no letters or other characters-->
       <!-- TODO: When character length reaches 8 and it's only digits, fire off ajax request, if 200 or 304, display results, else appropriately guide the user. -->
@@ -44,8 +44,7 @@
         type="text"
         id="uvuId"
         name="uvuId"
-        data-cy="uvuId_input"
-        placeholder="Enter a valid UVU ID"
+        data-cy="uvuId_input"        
       />
       <!-- TODO: The following options are currently static values to show you an example.  -->
       <!-- You must replace them with dynamic data by ajaxing GET https://json-server-ft3qa5--3000.local.webcontainer.io/logs?courseId=<courseID>&uvuId=<uvuID> -->
