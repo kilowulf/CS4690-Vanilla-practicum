@@ -20,39 +20,6 @@ courseSelect.addEventListener('change', function () {
   }
 });
 
-/*Dynamic display of data from fetch request */
-// Dynamically display data within form>select elements
-const select = document.getElementById('course');
-
-fetch(
-  'https://jsonservere5wv4m-jam2--3000.local-credentialless.webcontainer.io/api/v1/courses'
-)
-  .then((response) => response.json())
-  .then((data) => {
-    // Create an option element for each course
-    data.forEach((course) => {
-      const option = document.createElement('option');
-      // set values and content to the appropriate course attributes
-      option.value = course.id;
-      option.textContent = course.display;
-      select.appendChild(option);
-    });
-    select.options[0].selected = false;
-  })
-  .catch((error) => {
-    console.error('Error fetching courses:', error);
-  });
-
-/* Make the paragragh data within the <pre> tags only visible on click of when clicked */
-const logEntries = document.querySelectorAll('.log-entries li');
-
-logEntries.forEach((logEntry) => {
-  logEntry.addEventListener('click', () => {
-    const text = logEntry.querySelector('pre');
-    text.style.display = text.style.display === 'none' ? 'block' : 'none';
-  });
-});
-
 /* UVU Id Validation */
 /* Ensure uvuId input checks input for strings no longer than 8 and returns error codes for violations*/
 const input = document.getElementById('uvuId');
@@ -85,11 +52,45 @@ input.addEventListener('input', (event) => {
           throw new Error('Invalid UVU ID');
         } else {
           // Display results
+
+          // Get the log entries container
+          const logEntries = document.querySelector('.log-entries');
+          // Clear the container before appending new entries
+          logEntries.innerHTML = '';
+          // Iterate over the log data
+          data.forEach((log) => {
+            // Create a new list item
+            const logItem = document.createElement('li');
+            // Create the log date element
+            const logDate = document.createElement('div');
+            logDate.innerHTML = `<small>${log.date}</small>`;
+            // Create the log text element
+            const logText = document.createElement('pre');
+            logText.innerHTML = `<p>${log.text}</p>`;
+            // Append the date and text elements to the list item
+            logItem.appendChild(logDate);
+            logItem.appendChild(logText);
+            // Append the list item to the log entries container
+            logEntries.appendChild(logItem);
+          });
+
+          // display only log dates with on click event to view text entries list-items
+          const logEntriesLi = document.querySelectorAll('.log-entries li');
+          logEntriesLi.forEach((logEntry) => {
+            logEntry.addEventListener('click', () => {
+              // text is queried from the <pre> -preformatted tag
+              const text = logEntry.querySelector('pre');
+              text.style.display =
+                text.style.display === 'none' ? 'block' : 'none';
+            });
+          });
+
           console.log(data);
         }
       })
       .catch((error) => {
         // Appropriately guide the user
+        // Create a Div to set our warning within
         const errorDiv = document.createElement('div');
         errorDiv.classList.add('alert', 'alert-danger');
         errorDiv.innerText = error.message;
@@ -101,6 +102,39 @@ input.addEventListener('input', (event) => {
         }, 5000);
       });
   }
+});
+
+/*Dynamic display of data from fetch request */
+// Dynamically display data within form>select elements
+const select = document.getElementById('course');
+
+fetch(
+  'https://jsonservere5wv4m-jam2--3000.local-credentialless.webcontainer.io/api/v1/courses'
+)
+  .then((response) => response.json())
+  .then((data) => {
+    // Create an option element for each course
+    data.forEach((course) => {
+      const option = document.createElement('option');
+      // set values and content to the appropriate course attributes
+      option.value = course.id;
+      option.textContent = course.display;
+      select.appendChild(option);
+    });
+    select.options[0].selected = false;
+  })
+  .catch((error) => {
+    console.error('Error fetching courses:', error);
+  });
+
+/* Make the paragragh data within the <pre> tags only visible on click of when clicked */
+const logEntries = document.querySelectorAll('.log-entries li');
+
+logEntries.forEach((logEntry) => {
+  logEntry.addEventListener('click', () => {
+    const text = logEntry.querySelector('pre');
+    text.style.display = text.style.display === 'none' ? 'block' : 'none';
+  });
 });
 
 // NOTE: The TODOs are listed in index.html
