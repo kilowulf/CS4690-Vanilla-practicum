@@ -141,7 +141,7 @@ input.addEventListener('input', (event) => {
           console.log(data);
         } else {
           throw new Error(
-            `No ${courseId} Course logs exist for uvuid ${uvuId}`
+            `No Course Logs could be found for ${courseId} Course under the uvuid ${uvuId}`
           );
         }
       })
