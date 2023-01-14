@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en-US">
-  <!-- TODO: set the lang attribute to American English : Done-->
+  <!-- TODO: set the lang attribute to American English -->
   <head>
     <title>Student Log</title>
-    <!-- TODO: set the characterset to utf8 : Done-->
+    <!-- TODO: set the characterset to utf8 -->
     <meta charset="UTF-8" />
-    <!-- TODO: temporarily use stackoverflow's favicon. "https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico": Done-->
+    <!-- TODO: temporarily use stackoverflow's favicon. "https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico"-->
     <link
       rel="icon"
       href="https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico"
       type="image/x-icon"
     />
-    <!-- TODO: Load your CSS file: Done -->
+    <!-- TODO: Load your CSS file -->
     <link rel="stylesheet" type="text/css" href="./style.css" />
   </head>
   <body>
@@ -33,19 +33,14 @@
         <option value="cs3380">CS 3380</option> --></select
       ><br />
 
-      <!-- TODO: Don't show the uvu id text input box until a course was selected above. Done -->
-      <!-- TODO: If course ever becomes unselected, don't show the uvu id text input box. Done -->
+      <!-- TODO: Don't show the uvu id text input box until a course was selected above.  -->
+      <!-- TODO: If course ever becomes unselected, don't show the uvu id text input box.  -->
       <label for="uvuId">UVU ID</label><br />
-      <!-- TODO: write `10234567` as sample data on the input field below : Done -->
-      <!-- TODO: Ensure the character length never exceeds 8 Done -->
-      <!-- TODO: Only numbers, no letters or other characters: Done-->
+      <!-- TODO: write `10234567` as sample data on the input field below :  -->
+      <!-- TODO: Ensure the character length never exceeds 8  -->
+      <!-- TODO: Only numbers, no letters or other characters: -->
       <!-- TODO: When character length reaches 8 and it's only digits, fire off ajax request, if 200 or 304, display results, else appropriately guide the user. -->
-      <input
-        type="text"
-        id="uvuId"
-        name="uvuId"
-        data-cy="uvuId_input"        
-      />
+      <input type="text" id="uvuId" name="uvuId" data-cy="uvuId_input" />
       <!-- TODO: The following options are currently static values to show you an example.  -->
       <!-- You must replace them with dynamic data by ajaxing GET https://json-server-ft3qa5--3000.local.webcontainer.io/logs?courseId=<courseID>&uvuId=<uvuID> -->
       <h3 id="uvuIdDisplay" data-cy="uvuIdDisplay">
@@ -53,7 +48,7 @@
       </h3>
       <ul class="log-entries" data-cy="logs">
         <!-- TODO: Click anywhere on the log to toggle visibility of the log (text only, not the date)-->
-        <li>
+        <!-- <li>
           <div><small>1/23/2021 1:23:36 PM</small></div>
           <pre><p>Initial comment. Hello World</p></pre>
         </li>
@@ -64,7 +59,7 @@
         <li>
           <div><small>1/27/2021 5:58:10 PM</small></div>
           <pre><p>Atlas is up and running</p></pre>
-        </li>
+        </li> -->
       </ul>
       <label>New Log</label><br />
       <textarea
@@ -74,7 +69,7 @@
       ></textarea
       ><br />
       <!-- TODO: Button should be disabled until there are logs displayed -->
-      <button type="submit" data-cy="add_log_btn">Add Log</button>
+      <button id="addLog" type="submit" data-cy="add_log_btn">Add Log</button>
     </form>
     <!-- TODO: Script tag to your javascript file -->
     <script src="script.js"></script>
@@ -83,3 +78,17 @@
 </html>
 
 <!-- TODO: move all TODOs that done above to down below here and change the label to DONE:. -->
+<!-- DONE: set the lang attribute to American English : Done-->
+<!-- DONE: set the characterset to utf8 : Done-->
+<!-- DONE: temporarily use stackoverflow's favicon. "https://cdn.sstatic.net/Sites/stackoverflow/Img/favicon.ico": Done-->
+<!-- DONE: Load your CSS file: Done -->
+<!-- DONE: The following options are currently static values to show you sample data.  -->
+<!-- DONE: Don't show the uvu id text input box until a course was selected above. Done -->
+<!-- DONE: If course ever becomes unselected, don't show the uvu id text input box. Done -->
+<!-- DONE: write `10234567` as sample data on the input field below : Done -->
+<!-- DONE: Ensure the character length never exceeds 8 Done -->
+<!-- DONE: Only numbers, no letters or other characters: Done-->
+<!-- DONE: When character length reaches 8 and it's only digits, fire off ajax request, if 200 or 304, display results, else appropriately guide the user. -->
+<!-- DONE: The following options are currently static values to show you an example.  -->
+<!-- You must replace them with dynamic data by ajaxing GET https://json-server-ft3qa5--3000.local.webcontainer.io/logs?courseId=<courseID>&uvuId=<uvuID> -->
+<!-- DONE: Click anywhere on the log to toggle visibility of the log (text only, not the date)-->

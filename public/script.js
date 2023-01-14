@@ -1,5 +1,11 @@
 // TODO: Wire up the app's behavior here.
 
+/* Disable Add Log button until logs are displayed */
+// Get the button
+const addLogBtn = document.querySelector('#addLog');
+// Disable the button
+addLogBtn.disabled = true;
+
 /**  Make UVU ID visible only after course selection has been made **/
 // Get references to the form elements
 const courseSelect = document.getElementById('course');
@@ -34,10 +40,14 @@ input.addEventListener('input', (event) => {
   if (!/^\d+$/.test(event.target.value)) {
     event.target.value = event.target.value.replace(/[^\d]/g, '');
   }
+  console.log(courseSelect.value);
   // When character length reaches 8 and it's only digits, fire off an AJAX request
   if (event.target.value.length === 8) {
+    // capture passed courseId and uvuId
+    const courseId = courseSelect.value;
+    const uvuId = event.target.value;
     fetch(
-      `https://jsonservere5wv4m-jam2--3000.local-credentialless.webcontainer.io/api/v1/logs?uvuId=${event.target.value}`
+      `https://jsonservere5wv4m-jam2--3000.local-credentialless.webcontainer.io/api/v1/logs?coursId=${courseId}&uvuId=${uvuId}`
     )
       .then((response) => {
         if (response.status === 200 || response.status === 304) {
@@ -50,15 +60,22 @@ input.addEventListener('input', (event) => {
         // check if object is empty
         if (Object.keys(data).length === 0) {
           throw new Error('Invalid UVU ID');
-        } else {
+          // check if the courseId passed in input matches the courseID in response
+          // ensures response data reflects only records where a course log has been made under
+          // the appropriate uvuId
+        } else if (courseId && data.courseId) {
           // Display results
-
+          console.log(data.courseId);
           // Get the log entries container
           const logEntries = document.querySelector('.log-entries');
           // Clear the container before appending new entries
           logEntries.innerHTML = '';
           // Iterate over the log data
           data.forEach((log) => {
+            // set h3 header
+            const uvuIdDisplay = document.querySelector('#uvuIdDisplay');
+            // Update the innerHTML to show the chosen UVU ID
+            uvuIdDisplay.innerHTML = `Student Logs for ${log.uvuId}`;
             // Create a new list item
             const logItem = document.createElement('li');
             // Create the log date element
@@ -73,6 +90,7 @@ input.addEventListener('input', (event) => {
             // Append the list item to the log entries container
             logEntries.appendChild(logItem);
           });
+          addLogBtn.disabled = false;
 
           // display only log dates with on click event to view text entries list-items
           const logEntriesLi = document.querySelectorAll('.log-entries li');
@@ -86,6 +104,10 @@ input.addEventListener('input', (event) => {
           });
 
           console.log(data);
+        } else {
+          throw new Error(
+            `No ${courseId} Course logs exist for uvuid ${uvuId}`
+          );
         }
       })
       .catch((error) => {
