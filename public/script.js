@@ -55,6 +55,7 @@ const logEntries = document.querySelectorAll('.log-entries li');
 logEntries.forEach((logEntry) => {
   logEntry.addEventListener('click', () => {
     const text = logEntry.querySelector('pre');
+    text.classList.toggle('active');
     text.style.display = text.style.display === 'none' ? 'block' : 'none';
   });
 });
