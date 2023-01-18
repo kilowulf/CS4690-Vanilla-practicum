@@ -150,7 +150,7 @@ input.addEventListener('input', (event) => {
         // Appropriately guide the user
         // Create a Div to set our warning within
         const errorDiv = document.createElement('div');
-        errorDiv.classList.add('alert', 'alert-danger');
+        errorDiv.classList.add('error-message');
         errorDiv.innerText = error.message;
         // Append the error message to the body of the document
         document.body.appendChild(errorDiv);
