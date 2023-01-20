@@ -6,6 +6,7 @@
   box-sizing: border-box;
 }
 h3 {
+  padding-top: 8px;
 }
 
 /* Body styles */
@@ -19,7 +20,7 @@ body {
 /* Header styles */
 header {
   background-color: #333;
-  color: #fff;
+  color: rgb(20, 14, 14);
   padding: 10px;
   text-align: center;
 }
@@ -51,6 +52,7 @@ input[type='text'] {
 
 ul {
   margin: 2px;
+  padding-bottom: 4px;
   list-style-type: none;
 }
 
@@ -71,16 +73,6 @@ ul {
   background-color: #333;
 }
 
-.log-entries li pre {
-  display: none;
-  padding: 10px;
-  margin: 0;
-  background-color: #f5f5f5;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  inline-size: auto;
-}
-
 .log-entries li pre.active {
   display: block;
 }
@@ -88,7 +80,21 @@ ul {
 /*Keep pre tag data invisible by default*/
 .log-entries li pre {
   display: none;
+  padding: 4px;
+  margin: 0px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  inline-size: auto;
   white-space: pre-wrap;
+  font-family: Helvetica;
+}
+
+/* log date */
+.log-entries div {
+  font-weight: lighter;
+  padding-bottom: 6px;
+  padding-top: 8px;
 }
 
 /* Log entries styles */

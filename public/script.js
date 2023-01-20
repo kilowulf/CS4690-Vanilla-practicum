@@ -50,7 +50,7 @@ fetch(
   });
 
 /* Make the paragragh data within the <pre> tags only visible on click of when clicked */
-const logEntries = document.querySelectorAll('.log-entries li');
+const logEntries = document.querySelectorAll('.log-entries li , .log-entries');
 
 logEntries.forEach((logEntry) => {
   logEntry.addEventListener('click', () => {
